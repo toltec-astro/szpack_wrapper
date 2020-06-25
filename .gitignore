@@ -20,7 +20,7 @@ MANIFEST
 # Sphinx
 docs/api
 docs/_build
-
+site/
 # Eclipse editor project files
 .project
 .pydevproject

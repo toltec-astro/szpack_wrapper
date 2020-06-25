@@ -42,6 +42,34 @@ The license section from the README file of the `SZpack.v1.1.1` tarball:
     //==================================================================================================
 
 
+Installation
+------------
+
+The SZpack depends on the
+`GNU Scientific Library <https://www.gnu.org/software/gsl/>`_ (GSL), which has
+to be installed and made available in the environment.
+
+The low level python interface comes along with SZPack also depends on
+`SWIG <http://www.swig.org/index.php>`_. Please refer to the documentation
+for how to install.
+
+To install ``szpack_wrapper``,
+
+.. code:: text
+
+    $ gsl-config --version  # check that GSL is installed
+    2.6
+    $ which swig  # check that swig is installed
+    /usr/local/bin/swig
+    $ pip install szpack_wrapper
+
+Behind the scene, the ``SZpack`` v1.1.1 is bundled with this package in the
+``szpack_wrapper/extern`` folder, and an accompanying ``setup_package.py`` file
+is used to leverage the
+`extension-helpers <https://extension-helpers.readthedocs.io/en/latest/>`_
+to build the code as a C extension.
+
+
 SZpackWrapper License
 ---------------------
 
