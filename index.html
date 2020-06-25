@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SZpackWrapper Documentation &#8212; szpack_wrapper v0.1.dev1+gfdee72a.d20200625</title>
+    <link rel="stylesheet" href="_static/bootstrap-astropy.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/sidebar.js"></script>
+    <script type="text/javascript" src="_static/copybutton.js"></script>
+    <link rel="shortcut icon" href="_static/astropy_logo.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="SZ" href="api/szpack_wrapper.SZ.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="#"><span id="logotext1">SZpackWrapper</span><span id="logotext2"></span><span id="logotext3">:docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="genindex.html">Index</a></li>
+    <li><a title="Module Index" href="py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="api/szpack_wrapper.SZ.html" title="SZ">
+	  next &raquo;
+	</a>
+      </li>
+      <li>
+	<a href="#">szpack_wrapper v0.1.dev1+gfdee72a.d20200625</a>
+	 &#187;
+      </li>
+      
+       
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="szpackwrapper-documentation">
+<h1>SZpackWrapper Documentation<a class="headerlink" href="#szpackwrapper-documentation" title="Permalink to this headline">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">szpack_wrapper</span></code> package provides some high-level functions to work with
+<a class="reference external" href="http://www.jb.man.ac.uk/~jchluba/Science/SZpack/SZpack.html">SZpack</a>
+developed by J. Chluba and Eric R. Switzer.</p>
+<div class="section" id="szpack-license">
+<h2>SZpack License<a class="headerlink" href="#szpack-license" title="Permalink to this headline">¶</a></h2>
+<p>The license section from the README file of the <code class="docutils literal notranslate"><span class="pre">SZpack.v1.1.1</span></code> tarball:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>//==================================================================================================
+// LICENCE:
+//
+// This code and all contained libraries and subroutines can be used free of charge provided that:
+//
+// (i) their use will be acknowledged in publications
+//
+// (ii) the paper of
+//
+//          Chluba, Nagai, Sazonov, Nelson, MNRAS, 2012 (arXiv:1205.5778)
+//          Chluba, Switzer, Nagai, Nelson, 2012, arXiv:1211.3206
+//
+//  will be cited, and the following papers are considered for citation:
+//
+//          Sazonov &amp; Sunyaev, ApJ, 1998
+//          Challinor &amp; Lasenby, ApJ, 1998
+//          Itoh et al., ApJ, 1998
+//          Nozawa et al. ApJ, 1998
+//      Nozawa et al. Nuovo Cimento B Series, 2006
+//
+// (iii) bugs will be immediately reported to Jens@Chluba.de
+//
+//==================================================================================================
+</pre></div>
+</div>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>The SZpack depends on the
+<a class="reference external" href="https://www.gnu.org/software/gsl/">GNU Scientific Library</a> (GSL), which has
+to be installed and made available in the environment.</p>
+<p>The low level python interface comes along with SZPack also depends on
+<a class="reference external" href="http://www.swig.org/index.php">SWIG</a>. Please refer to the documentation
+for how to install.</p>
+<p>To install <code class="docutils literal notranslate"><span class="pre">szpack_wrapper</span></code>,</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ gsl-config --version  # check that GSL is installed
+2.6
+$ which swig  # check that swig is installed
+/usr/local/bin/swig
+$ pip install szpack_wrapper
+</pre></div>
+</div>
+<p>Behind the scene, the <code class="docutils literal notranslate"><span class="pre">SZpack</span></code> v1.1.1 is bundled with this package in the
+<code class="docutils literal notranslate"><span class="pre">szpack_wrapper/extern</span></code> folder, and an accompanying <code class="docutils literal notranslate"><span class="pre">setup_package.py</span></code> file
+is used to leverage the
+<a class="reference external" href="https://extension-helpers.readthedocs.io/en/latest/">extension-helpers</a>
+to build the code as a C extension.</p>
+</div>
+<div class="section" id="reference-api">
+<h2>Reference/API<a class="headerlink" href="#reference-api" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-szpack_wrapper">
+<span id="szpack-wrapper-package"></span><h3>szpack_wrapper Package<a class="headerlink" href="#module-szpack_wrapper" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="classes">
+<h4>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h4>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/szpack_wrapper.SZ.html#szpack_wrapper.SZ" title="szpack_wrapper.SZ"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SZ</span></code></a>([cosmo])</p></td>
+<td><p>This class defines high level interface to call SZpack.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="class-inheritance-diagram">
+<h4>Class Inheritance Diagram<a class="headerlink" href="#class-inheritance-diagram" title="Permalink to this headline">¶</a></h4>
+<div class="graphviz"><object data="_images/inheritance-ebd7ad31326be4d8b24b1844a5d0b41143077d11.svg" type="image/svg+xml" class="inheritance graphviz">
+<p class="warning">Inheritance diagram of szpack_wrapper.sz.SZ</p></object></div>
+</div>
+</div>
+</div>
+<div class="section" id="index">
+<h2>Index<a class="headerlink" href="#index" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">SZpackWrapper Documentation</a><ul>
+<li><a class="reference internal" href="#szpack-license">SZpack License</a></li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#reference-api">Reference/API</a><ul>
+<li><a class="reference internal" href="#module-szpack_wrapper">szpack_wrapper Package</a><ul>
+<li><a class="reference internal" href="#classes">Classes</a></li>
+<li><a class="reference internal" href="#class-inheritance-diagram">Class Inheritance Diagram</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#index">Index</a></li>
+</ul>
+</li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="_sources/index.rst.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2020, Zhiyuan Ma.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 3.1.1. &nbsp;
+    Last built 24 Jun 2020. <br/>
+  </p>
+</footer>
+  </body>
+</html>

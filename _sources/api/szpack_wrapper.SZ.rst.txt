@@ -1,0 +1,31 @@
+SZ
+==
+
+.. currentmodule:: szpack_wrapper
+
+.. autoclass:: SZ
+   :show-inheritance:
+
+   .. rubric:: Attributes Summary
+
+   .. autosummary::
+
+      ~SZ.cosmo
+
+   .. rubric:: Methods Summary
+
+   .. autosummary::
+
+      ~SZ.surface_brightness
+      ~SZ.wavelength_to_x
+      ~SZ.x_to_wavelength
+
+   .. rubric:: Attributes Documentation
+
+   .. autoattribute:: cosmo
+
+   .. rubric:: Methods Documentation
+
+   .. automethod:: surface_brightness
+   .. automethod:: wavelength_to_x
+   .. automethod:: x_to_wavelength

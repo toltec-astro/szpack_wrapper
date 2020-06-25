@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SZ &#8212; szpack_wrapper v0.1.dev1+gfdee72a.d20200625</title>
+    <link rel="stylesheet" href="../_static/bootstrap-astropy.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="shortcut icon" href="../_static/astropy_logo.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="SZpackWrapper Documentation" href="../index.html" />
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600' rel='stylesheet' type='text/css'/>
+
+  </head><body>
+<div class="topbar">
+  <a class="brand" title="Documentation Home" href="../index.html"><span id="logotext1">SZpackWrapper</span><span id="logotext2"></span><span id="logotext3">:docs</span></a>
+  <ul>
+    
+    <li><a class="homelink" title="Astropy Homepage" href="http://www.astropy.org"></a></li>
+    <li><a title="General Index" href="../genindex.html">Index</a></li>
+    <li><a title="Module Index" href="../py-modindex.html">Modules</a></li>
+    <li>
+      
+      
+<form action="../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+      
+    </li>
+  </ul>
+</div>
+
+<div class="related">
+    <h3>Navigation</h3>
+    <ul>
+      <li class="right">
+	<a href="../index.html" title="SZpackWrapper Documentation">
+	  &laquo; previous
+	</a>
+	
+      </li>
+      <li>
+	<a href="../index.html">szpack_wrapper v0.1.dev1+gfdee72a.d20200625</a>
+	 &#187;
+      </li>
+      
+      <li>SZ</li> 
+    </ul>
+</div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="sz">
+<h1>SZ<a class="headerlink" href="#sz" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="szpack_wrapper.SZ">
+<em class="property">class </em><code class="sig-prename descclassname">szpack_wrapper.</code><code class="sig-name descname">SZ</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cosmo</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/szpack_wrapper/sz.html#SZ"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#szpack_wrapper.SZ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>This class defines high level interface to call SZpack.</p>
+<p>The SZpack works with the dimensionless (yet cosmology dependent)
+wavelength <code class="docutils literal notranslate"><span class="pre">x</span></code> defined as</p>
+<div class="math notranslate nohighlight">
+\[x \equiv \frac{h\nu}{k_BT_{CMB0}}\]</div>
+<p><a class="reference internal" href="#szpack_wrapper.SZ.wavelength_to_x" title="szpack_wrapper.SZ.wavelength_to_x"><code class="xref py py-meth docutils literal notranslate"><span class="pre">wavelength_to_x()</span></code></a> and <a class="reference internal" href="#szpack_wrapper.SZ.x_to_wavelength" title="szpack_wrapper.SZ.x_to_wavelength"><code class="xref py py-meth docutils literal notranslate"><span class="pre">x_to_wavelength()</span></code></a> can be used
+to convert between <code class="docutils literal notranslate"><span class="pre">x</span></code> and <a class="reference external" href="https://docs.astropy.org/en/stable/api/astropy.units.Quantity.html#astropy.units.Quantity" title="(in Astropy v4.0.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code></a> instance.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>cosmo</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cosmology</span></code></span></dt><dd><p>The cosmology to use. <a class="reference external" href="https://docs.astropy.org/en/stable/api/astropy.cosmology.default_cosmology.html#astropy.cosmology.default_cosmology" title="(in Astropy v4.0.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_cosmology</span></code></a> is
+used if not set.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Attributes Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#szpack_wrapper.SZ.cosmo" title="szpack_wrapper.SZ.cosmo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cosmo</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods Summary</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#szpack_wrapper.SZ.surface_brightness" title="szpack_wrapper.SZ.surface_brightness"><code class="xref py py-obj docutils literal notranslate"><span class="pre">surface_brightness</span></code></a>(self[, runmode, x, …])</p></td>
+<td><p>Compute the SZ surface_brightness.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#szpack_wrapper.SZ.wavelength_to_x" title="szpack_wrapper.SZ.wavelength_to_x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wavelength_to_x</span></code></a>(self, wavelength)</p></td>
+<td><p>Return the dimensionless wavelength.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#szpack_wrapper.SZ.x_to_wavelength" title="szpack_wrapper.SZ.x_to_wavelength"><code class="xref py py-obj docutils literal notranslate"><span class="pre">x_to_wavelength</span></code></a>(self, x)</p></td>
+<td><p>Return the wavelength as <a class="reference external" href="https://docs.astropy.org/en/stable/api/astropy.units.Quantity.html#astropy.units.Quantity" title="(in Astropy v4.0.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code></a>.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes Documentation</p>
+<dl class="py attribute">
+<dt id="szpack_wrapper.SZ.cosmo">
+<code class="sig-name descname">cosmo</code><a class="headerlink" href="#szpack_wrapper.SZ.cosmo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p class="rubric">Methods Documentation</p>
+<dl class="py method">
+<dt id="szpack_wrapper.SZ.surface_brightness">
+<code class="sig-name descname">surface_brightness</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">runmode</span><span class="o">=</span><span class="default_value">'3D'</span></em>, <em class="sig-param"><span class="n">x</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">wavelength</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/szpack_wrapper/sz.html#SZ.surface_brightness"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#szpack_wrapper.SZ.surface_brightness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the SZ surface_brightness.</p>
+<p>The input can be either given as the dimensionless <code class="docutils literal notranslate"><span class="pre">x</span></code> or
+as <a class="reference external" href="https://docs.astropy.org/en/stable/api/astropy.units.Quantity.html#astropy.units.Quantity" title="(in Astropy v4.0.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code></a>.</p>
+<p>The output is the SZ surface brightness as <a class="reference external" href="https://docs.astropy.org/en/stable/api/astropy.units.Quantity.html#astropy.units.Quantity" title="(in Astropy v4.0.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code></a>.</p>
+<p>The <code class="xref py py-obj docutils literal notranslate"><span class="pre">runmode</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">kwargs</span></code> is passed to SZpack wrapper to execute
+the calculation.</p>
+<p>Refer to the README file of SZpack for more information of all
+run-modes supported and the associated arguments.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>x</strong><span class="classifier"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.18)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ndarray</span></code></a></span></dt><dd><p>Dimensionless Observer frame photon frequency (h nu / k T0)</p>
+</dd>
+<dt><strong>wavelength</strong><span class="classifier"><a class="reference external" href="https://docs.astropy.org/en/stable/api/astropy.units.Quantity.html#astropy.units.Quantity" title="(in Astropy v4.0.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code></a></span></dt><dd><p>Observer frame photon wavelength/frequency.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><a class="reference external" href="https://docs.astropy.org/en/stable/api/astropy.units.Quantity.html#astropy.units.Quantity" title="(in Astropy v4.0.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code></a></dt><dd><p>The SZ surface brightness.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="szpack_wrapper.SZ.wavelength_to_x">
+<code class="sig-name descname">wavelength_to_x</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">wavelength</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/szpack_wrapper/sz.html#SZ.wavelength_to_x"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#szpack_wrapper.SZ.wavelength_to_x" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the dimensionless wavelength.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="szpack_wrapper.SZ.x_to_wavelength">
+<code class="sig-name descname">x_to_wavelength</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/szpack_wrapper/sz.html#SZ.x_to_wavelength"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#szpack_wrapper.SZ.x_to_wavelength" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the wavelength as <a class="reference external" href="https://docs.astropy.org/en/stable/api/astropy.units.Quantity.html#astropy.units.Quantity" title="(in Astropy v4.0.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Quantity</span></code></a>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><h3>Page Contents</h3>
+<ul>
+<li><a class="reference internal" href="#">SZ</a></li>
+</ul>
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+<footer class="footer">
+  <p class="pull-right">
+    <a href="../_sources/api/szpack_wrapper.SZ.rst.txt"
+       rel="nofollow">Page Source</a> &nbsp;
+    <a href="#">Back to Top</a></p>
+  <p>
+    &copy; Copyright 2020, Zhiyuan Ma.<br/>
+    Created using <a href="http://www.sphinx-doc.org/en/stable/">Sphinx</a> 3.1.1. &nbsp;
+    Last built 24 Jun 2020. <br/>
+  </p>
+</footer>
+  </body>
+</html>
