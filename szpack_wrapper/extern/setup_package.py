@@ -94,6 +94,4 @@ def get_extensions():
             '-Wno-unused-const-variable',
             ])
 
-    print(cfg)
-
     return [Extension('szpack_wrapper.extern._SZpack', **cfg)]
