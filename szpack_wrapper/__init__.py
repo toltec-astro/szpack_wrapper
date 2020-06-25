@@ -6,4 +6,8 @@
 from ._astropy_init import *   # noqa
 # ----------------------------------------------------------------------------
 
+_excluded_from_all = set(globals().keys())
+
 from .sz import *   # noqa
+
+__all__ = list(set(globals().keys()).difference(_excluded_from_all))
