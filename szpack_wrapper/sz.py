@@ -131,7 +131,7 @@ class SZ(object):
                 raise ValueError(f"x > 50. at {np.argmax(x)}")
             if TeSZ_keV > 75.:
                 raise ValueError(f'TeSZ_keV > 75.')
-        result = np.copy(x)
+        result = np.copy(x).reshape((-1))
         log.debug(
                 f'szpack.compute_combo_means(tau={tau}, TeSZ_keV={TeSZ_keV}, '
                 f'betac_para={betac_para}, omega={omega}, '
@@ -139,4 +139,6 @@ class SZ(object):
         SZpack.compute_combo_means(
                 result, tau, TeSZ_keV,
                 betac_para, omega, sigma, kappa, betac_perp)
-        return result
+        if np.isscalar(x):
+            return result[0]
+        return result.reshape(x.shape)
