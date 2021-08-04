@@ -61,7 +61,7 @@ To install ``szpack_wrapper``,
     2.6
     $ which swig  # check that swig is installed
     /usr/local/bin/swig
-    $ pip install szpack_wrapper
+    $ pip install git+https://github.com/toltec-astro/szpack_wrapper
 
 Behind the scene, the ``SZpack`` v1.1.1 is bundled with this package in the
 ``szpack_wrapper/extern`` folder, and an accompanying ``setup_package.py`` file
