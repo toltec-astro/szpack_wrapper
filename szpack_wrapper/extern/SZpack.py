@@ -20,6 +20,10 @@ def compute_3d(*args):
     return _SZpack.compute_3d(*args)
 
 
+def compute_3d_batch(*args):
+    return _SZpack.compute_3d_batch(*args)
+
+
 def compute_asym(*args):
     return _SZpack.compute_asym(*args)
 
@@ -38,6 +42,10 @@ def compute_combo(*args):
 
 def compute_combo_means(*args):
     return _SZpack.compute_combo_means(*args)
+
+
+def compute_combo_means_batch(*args):
+    return _SZpack.compute_combo_means_batch(*args)
 
 
 def compute_combo_means_ex(*args):

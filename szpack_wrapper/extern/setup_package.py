@@ -8,6 +8,7 @@ import subprocess
 import numpy
 
 from extension_helpers import get_compiler
+from extension_helpers import add_openmp_flags_if_available
 from pathlib import Path
 
 
@@ -94,4 +95,6 @@ def get_extensions():
             '-Wno-unused-const-variable',
             ])
 
-    return [Extension('szpack_wrapper.extern._SZpack', **cfg)]
+    extension = Extension('szpack_wrapper.extern._SZpack', **cfg)
+    add_openmp_flags_if_available(extension)
+    return [extension, ]

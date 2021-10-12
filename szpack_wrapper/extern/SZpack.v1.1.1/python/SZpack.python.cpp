@@ -78,6 +78,28 @@ void compute_3d(double *xo, int np,
     return;
 }
 
+
+void compute_3d_batch(
+                double *xo, int np,
+                double *Dtau, int nDtau,
+                double *Te, int nTe,
+                double *betac, int nbetac,
+                double *muc,  int nmuc,
+                double *betao, int nbetao,
+                double *muo, int nmuo,
+                double eps_Int)
+{ 
+    #pragma omp parallel for
+    for (int i = 0; i < np; ++i) {
+        // all params are 1d flattened view
+        xo[i] = compute_SZ_signal_3D(xo[i], Dtau[i], Te[i], betac[i], muc[i], betao[i], muo[i], eps_Int);
+    }
+    return;
+}
+
+
+
+
 //--------------------------------------------------------------------------------------------------
 //
 // asymptotic expansion
@@ -213,6 +235,26 @@ void compute_combo_means(double *xo, int np,
     return;
 }
 
+
+void compute_combo_means_batch(
+                         double *xo, int np,
+                         // mean parameters
+                         double *tau, int ntau,
+                         double *TeSZ, int nTeSZ,
+                         double *betac_para, int nbetac_para,
+                         // variances
+                         double *omega1, int nomega1,
+                         double *sigma, int nsigma,
+                         double *kappa, int nkappa,
+                         double *betac2_perp, int nbetac2_perp)
+{ 
+    #pragma omp parallel for
+    for (int i = 0; i < np; ++i) {
+        xo[i] = compute_SZ_signal_combo_means(xo[i], tau[i], TeSZ[i], betac_para[i],
+                                  omega1[i], sigma[i], kappa[i], betac2_perp[i]);
+    }
+    return;
+}
 
 //--------------------------------------------------------------------------------------------------
 // 

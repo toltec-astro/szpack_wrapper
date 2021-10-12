@@ -49,7 +49,7 @@ class SZ(object):
 
     def x_to_wavelength(self, x):
         """Return the wavelength as `~astropy.units.Quantity`."""
-        return (x * (const.k_B * self.cosmo.Tcmb0) / const.h).to(
+        return (x * ((const.k_B * self.cosmo.Tcmb0) / const.h)).to(
                 u.mm, u.spectral())
 
     def surface_brightness(
@@ -85,6 +85,23 @@ class SZ(object):
 
             The SZ surface brightness.
         """
+        kwargs.setdefault('return_x', True)
+        result, x = self.compute(
+                runmode=runmode, x=x, wavelength=wavelength, **kwargs)
+        # dndi value is from  SZpack.h line 73
+        DnDI = 13.33914078 * self.cosmo.Tcmb0.to_value(u.K) ** 3
+        return (result * x ** 3 * DnDI) << u.MJy / u.sr
+
+    def compute(
+            self, runmode='3D',
+            x=None,
+            wavelength=None,
+            return_x=False,
+            **kwargs):
+        """
+        Compute the SZ Dn, as defined in SZpack.
+
+        """
         _compute = getattr(self, f'_compute_{runmode}', None)
         if _compute is None:
             raise NotImplementedError(
@@ -96,14 +113,31 @@ class SZ(object):
         # compute x
         if x is None:
             x = self.wavelength_to_x(wavelength)
-        result = _compute(x, **kwargs)  # in Dn(x)
-        # dndi value is from  SZpack.h line 73
-        DnDI = 13.33914078 * self.cosmo.Tcmb0.to_value(u.K) ** 3
-        return result * x ** 3 * DnDI * u.MJy / u.sr
+        result = _compute(np.asanyarray(x), **kwargs)  # in Dn(x)
+        if return_x:
+            return result, x
+        return result
 
     @staticmethod
+    def _prepare_compute_args(*args):
+        # this checks the arguments and broadcast if needed.
+        # the first arg is x, and the rest are parameters
+        # broadcast happens between x and the rest.
+        if all(map(np.isscalar, args[1:])):
+            # non batch mode
+            pass
+        else:
+            # batch mode
+            # make broadcast, ensure all float type
+            args = list(map(np.ascontiguousarray, np.broadcast_arrays(
+                *(np.asarray(a, dtype='d') for a in args))))
+        x, args = args[0], args[1:]
+        result = np.copy(x)
+        return result, x, args
+
+    @classmethod
     def _compute_3D(
-            x, Dtau, Te_keV, betac, muc, betao, muo, eps_Int=1e-4,
+            cls, x, Dtau, Te_keV, betac, muc, betao, muo, eps_Int=1e-4,
             check_range=True
             ):
         if check_range:
@@ -111,16 +145,24 @@ class SZ(object):
                 raise ValueError(f"x < 0.1 at {np.argmin(x)}")
             if np.min(x) > 50.0:
                 raise ValueError(f"x > 50. at {np.argmax(x)}")
-        result = np.copy(x)
-        log.debug(
+        result, x, args = cls._prepare_compute_args(
+            x, Dtau, Te_keV, betac, muc, betao, muo)
+        if np.asanyarray(args[0]).ndim < 1:
+            # non batch mode
+            log.debug(
                 f'szpack.compute_3d(Dtau={Dtau}, Te_keV={Te_keV}, '
                 f'betac={betac}, muc={muc}, betao={betao}, muo={muo})')
-        SZpack.compute_3d(result, Dtau, Te_keV, betac, muc, betao, muo)
+            SZpack.compute_3d(result.ravel(), *args, eps_Int)
+        else:
+            log.debug(
+                f'szpack.compute_3d_batch(n={result.shape})')
+            SZpack.compute_3d_batch(result.ravel(), *(
+                a.ravel() for a in args), eps_Int)
         return result
 
-    @staticmethod
+    @classmethod
     def _compute_combo_means(
-            x, tau, TeSZ_keV,
+            cls, x, tau, TeSZ_keV,
             betac_para, omega, sigma, kappa, betac_perp,
             check_range=True
             ):
@@ -129,16 +171,20 @@ class SZ(object):
                 raise ValueError(f"x < 0.1 at {np.argmin(x)}")
             if np.min(x) > 50.0:
                 raise ValueError(f"x > 50. at {np.argmax(x)}")
-            if TeSZ_keV > 75.:
-                raise ValueError(f'TeSZ_keV > 75.')
-        result = np.copy(x).reshape((-1))
-        log.debug(
+            if np.min(TeSZ_keV) > 75.:
+                raise ValueError('TeSZ_keV > 75.')
+        result, x, args = cls._prepare_compute_args(
+            x, tau, TeSZ_keV, betac_para, omega, sigma, kappa, betac_perp)
+        if np.asanyarray(args[0]).ndim < 1:
+            # non batch mode
+            log.debug(
                 f'szpack.compute_combo_means(tau={tau}, TeSZ_keV={TeSZ_keV}, '
                 f'betac_para={betac_para}, omega={omega}, '
                 f'sigma={sigma}, kappa={kappa}, betac_perp={betac_perp})')
-        SZpack.compute_combo_means(
-                result, tau, TeSZ_keV,
-                betac_para, omega, sigma, kappa, betac_perp)
-        if np.isscalar(x):
-            return result[0]
-        return result.reshape(x.shape)
+            SZpack.compute_3d(result.ravel(), *args)
+        else:
+            log.debug(
+                f'szpack.compute_combo_means_batch(n={result.shape})')
+            SZpack.compute_combo_means_batch(result.ravel(), *(
+                a.ravel() for a in args))
+        return result

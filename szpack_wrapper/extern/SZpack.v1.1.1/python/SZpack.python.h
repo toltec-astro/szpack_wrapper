@@ -57,6 +57,16 @@ void compute_3d(double *xo, int np,
                 double betao, double muo, 
                 double eps_Int=1.0e-4);
 
+void compute_3d_batch(
+                double *xo, int np,
+                double *Dtau, int nDtau,
+                double *Te, int nTe,
+                double *betac, int nbetac,
+                double *muc,  int nmuc,
+                double *betao, int nbetao,
+                double *muo, int nmuo,
+                double eps_Int=1.0e-4);
+
 //--------------------------------------------------------------------------------------------------
 //
 // asymptotic expansion
@@ -143,6 +153,18 @@ void compute_combo_means(double *xo, int np,
                          // variances
                          double omega1, double sigma,
                          double kappa, double betac2_perp);
+
+void compute_combo_means_batch(
+                         double *xo, int np,
+                         // mean parameters
+                         double *tau, int ntau,
+                         double *TeSZ, int nTeSZ,
+                         double *betac_para, int nbetac_para,
+                         // variances
+                         double *omega1, int nomega1,
+                         double *sigma, int nsigma,
+                         double *kappa, int nkappa,
+                         double *betac2_perp, int nbetac2_perp);
 
 //--------------------------------------------------------------------------------------------------
 // 

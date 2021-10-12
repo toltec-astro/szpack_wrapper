@@ -121,6 +121,7 @@ void compute_SZ_signal_5D(double *xo, int np,
                           double betao, double muo, 
                           double eps_Int)
 {
+#pragma omp parallel for
     for(int m=0; m<np; m++) 
         xo[m]=compute_SZ_signal_5D(xo[m], Dtau, Te, betac, muc, betao, muo, eps_Int);
     
@@ -181,6 +182,7 @@ void compute_SZ_signal_3D(double *xo, int np,
                           double betao, double muo, 
                           double eps_Int)
 {
+#pragma omp parallel for
     for(int m=0; m<np; m++) 
         xo[m]=compute_SZ_signal_3D(xo[m], Dtau, Te, betac, muc, betao, muo, eps_Int);
     
@@ -260,6 +262,7 @@ void compute_SZ_signal_asymptotic(double *xo, int np,
                                   double betao, double muo, 
                                   int Te_order, int betac_order)
 {
+#pragma omp parallel for
     for(int m=0; m<np; m++) 
         xo[m]=compute_SZ_signal_asymptotic(xo[m], Dtau, Te, 
                                            betac, muc, betao, muo, 
@@ -429,6 +432,7 @@ void compute_SZ_signal_CNSN_basis_opt(double *xo, int np,
                                       int kmax, int betac_order,
                                       int accuracy_level)
 {
+#pragma omp parallel for
     for(int m=0; m<np; m++)
         xo[m]=compute_SZ_signal_CNSN_basis_opt(xo[m], Dtau, Te,
                                                betac, muc, betao, muo,
@@ -478,6 +482,7 @@ void compute_SZ_signal_combo(double *xo, int np,
                              double betac, double muc, 
                              double betao, double muo)
 {
+#pragma omp parallel for
     for(int m=0; m<np; m++) 
         xo[m]=compute_SZ_signal_combo(xo[m], Dtau, Te, betac, muc, betao, muo);
 
@@ -580,6 +585,7 @@ void compute_SZ_signal_combo_means(double *xo, int np,
                                    double omega, double sigma, 
                                    double kappa, double betac2_perp)
 {
+#pragma omp parallel for
     for(int m=0; m<np; m++) 
         xo[m]=compute_SZ_signal_combo_means(xo[m], tau, TeSZ, betac_para, 
                                             omega, sigma, kappa, betac2_perp);
@@ -679,6 +685,7 @@ void compute_SZ_signal_combo_means_ex(double *xo, int np,
                                       double omega[3], double sigma[3], 
                                       double kappa, double betac2_perp)
 {
+#pragma omp parallel for
     for(int m=0; m<np; m++) 
         xo[m]=compute_SZ_signal_combo_means_ex(xo[m], tau, TeSZ, betac_para, 
                                                omega, sigma, kappa, betac2_perp);
