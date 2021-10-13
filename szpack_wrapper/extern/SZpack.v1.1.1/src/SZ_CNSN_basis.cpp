@@ -35,6 +35,7 @@
 #include <cmath>
 #include <limits.h>
 #include <vector>
+#include <mutex>
 
 //==================================================================================================
 // required libs
@@ -60,6 +61,7 @@ const double Tref_basis=0.03;
 const double Tref_basis_high=0.1; 
 
 bool basis_loaded=0, basis_loaded_CMB=0;
+std::mutex basis_loaded_mutex, basis_loaded_CMB_mutex;
 
 #include "./src/database/SZ_basis.The_0.01.h"
 #include "./src/database/SZ_basis.The_0.03.h"
@@ -131,6 +133,7 @@ double DI_SZ_splines(double x, double The, double The_ref, vector<int> &spline_m
 //==================================================================================================
 void load_basis()
 {
+    const std::lock_guard<std::mutex> lock(basis_loaded_mutex);
     if(!basis_loaded)
     {
         cout << " Loading CNSN 2012 basis functions. This will only be done once. " << endl;
@@ -159,6 +162,7 @@ void load_basis()
 //==================================================================================================
 void load_basis_CMB()
 {
+    const std::lock_guard<std::mutex> lock(basis_loaded_CMB_mutex);
     if(!basis_loaded_CMB)
     {
         cout << " Loading CNSN 2012 basis functions (CMB frame). This will only be done once. " 
